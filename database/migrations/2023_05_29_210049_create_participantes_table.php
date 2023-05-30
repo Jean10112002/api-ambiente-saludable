@@ -15,8 +15,7 @@ return new class extends Migration
     {
         Schema::create('participantes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apellido');
+            $table->string('nombres');
             $table->string('cedula')->unique();
             $table->string('email')->unique();
             $table->string('semestre');

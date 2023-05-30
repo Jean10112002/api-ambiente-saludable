@@ -20,8 +20,9 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
-            $this->call(Jurado::class);
-            $this->call(Comentario::class);
-            $this->call(Categoria::class);
+        $this->call(CsvSeeder::class);
+        $this->call(Jurado::class);
+        $this->call(Comentario::class);
+        $this->call(Categoria::class);
     }
 }
