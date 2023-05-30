@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('comentario-_posts', function (Blueprint $table) {
+        Schema::create('comentario_posts', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
 

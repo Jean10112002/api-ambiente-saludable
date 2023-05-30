@@ -11,7 +11,7 @@ class Comentario_Post extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $table ='comentario-_posts';
+    protected $table ='comentario_posts';
     protected $fillable =['fecha','comentario_id','participante_id','post_id'];
     public function Comentario():BelongsTo{
         return $this->belongsTo(Comentario::class);
