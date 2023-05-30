@@ -11,8 +11,8 @@ class Imagen extends Model
     use HasFactory;
 
     public $timestamps = false;
-    protected $table = 'imagens';
-    protected $fillable =['id_imagen','imagen_url','imagen'];
+    protected $table = 'imagenes';
+    protected $fillable =['id_imagen','imagen_url'];
 
 
     public function Post(): HasOne

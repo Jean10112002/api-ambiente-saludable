@@ -10,7 +10,7 @@ class Calificacion extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $table ='calificacions';
+    protected $table ='calificaciones';
     protected $fillable = ['total','contenido','organizacion_estatica','creatividad','tecnica','post_id','jurado_id'];
 
     public function Jurado(): BelongsTo

@@ -24,7 +24,7 @@ return new class extends Migration
         //Relaciones
         //imagen
             $table->foreignId('imagen_id')
-            ->constrained('imagens')
+            ->constrained('imagenes')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
         //categoria
