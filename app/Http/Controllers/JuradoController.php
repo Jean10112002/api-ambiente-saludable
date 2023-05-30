@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Jurado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -111,7 +112,8 @@ class JuradoController extends Controller
 
     public function userProfile()
     {
-        $usuario=auth()->user();
+        $usuario=Auth::guard('sanctum')->user();
+
         return response()->json([
             "msg" => "Acerca del perfil de usuario",
             "user" => $usuario,
@@ -121,8 +123,8 @@ class JuradoController extends Controller
 
     public function logout()
     {
-        auth()->user()->tokens()->delete();
-
+       /*  auth()->user()->tokens()->delete(); */
+       Auth::guard('sanctum')->user()->tokens()->delete();
         return response()->json([
             "status" => 1,
             "messages" => "Cierre de Sesión",
