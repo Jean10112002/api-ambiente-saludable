@@ -29,7 +29,7 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
-    Route::resource('post/imagen',ImagenController::class)->except('update','destroy','show');
+
     Route::resource('categoria',CategoriaController::class)->except('update','destroy','show');
     Route::resource('post',PostController::class)->except('update','destroy');
     Route::resource('interaccion/comentario',ComentarioController::class)->except('update','destroy','show');
@@ -37,3 +37,4 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
     Route::resource('participante',ParticipanteController::class)->except('update','destroy');
 });
 Route::post('/login-jurado',[JuradoController::class,'login']);
+Route::resource('post/imagen',ImagenController::class)->except('update','destroy');

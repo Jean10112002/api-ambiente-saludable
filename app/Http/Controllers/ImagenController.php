@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Imagen;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Validator;
 
 class ImagenController extends Controller
 {
@@ -13,9 +14,24 @@ class ImagenController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public $rulesImagenes=array(
+
+        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:24000',
+);
+    public $mensajes=array(
+
+        'imagen.required' => 'Se requiere una imagen.',
+        'imagen.image' => 'Solo se permite imagenes.',
+        'imagen.mimes' => 'Tipo de imagen no valido.',
+        'imagen.max' => 'Esta imagen supero el tamaño de envio.',
+        'imagen.unique' => 'Solo se puede subir la imagen al menos una vez.',
+
+    );
     public function index()
     {
         //
+
     }
 
     /**
@@ -27,6 +43,26 @@ class ImagenController extends Controller
     public function store(Request $request)
     {
         //
+        $validator= Validator::make($request->all(),$this->rulesImagenes,$this->mensajes);
+        if($validator -> fails()){
+            $messages=$validator->getMessageBag();
+            return response()->json([
+                'messages'=>$messages
+            ],500);
+        }
+        $file = request()->file('imagen');
+        $obj = Cloudinary::upload($file->getRealPath(),['folder'=>'AmbienteSaludable']);
+        $imagen_id = $obj->getPublicId();
+        $url = $obj->getSecurePath();
+
+        $imagen = Imagen::create([
+
+            'imagen_url'=>$url,
+            'id_imagen'=>$imagen_id,
+
+        ]);
+        return response()->json(['messages'=>'Se creo una la imagen con exito.','imagen'=> $imagen]);
+
     }
 
     /**
