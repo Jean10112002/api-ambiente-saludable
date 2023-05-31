@@ -15,6 +15,8 @@ class ComentarioController extends Controller
     public function index()
     {
         //
+        $comentario = Comentario::all();
+        return response()->json(['Comentarios'=>$comentario]);
     }
 
     /**
