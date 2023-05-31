@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Participante;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ParticipanteController extends Controller
 {
@@ -12,9 +13,22 @@ class ParticipanteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $rulesParticipante=array(
+
+        'id' => 'required|integer|exists:participantes,id',
+);
+    public $mensajes=array(
+
+        'id.required' => 'Se requiere el identificador.',
+        'id.integer' => 'Solo se aceptan numeros.',
+        'id.exists' => 'Solo identificadores existentes.',
+
+    );
     public function index()
     {
         //
+        $participante = Participante::all();
+        return response()->json(['Participantes'=>$participante]);
     }
 
     /**
@@ -26,6 +40,7 @@ class ParticipanteController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -34,9 +49,22 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function show(Participante $participante)
+    public function show(Request $request, $id)
     {
         //
+        $validator= Validator::make($request->all(),$this->rulesParticipante,$this->mensajes);
+        if($validator -> fails()){
+            $messages=$validator->getMessageBag();
+            return response()->json([
+                'messages'=>$messages
+            ],500);
+        }
+        $participante = Participante::find($id);
+        $participante::with('Post')->get();
+        return response()->json([
+            'participante'=>$participante
+        ]);
+
     }
 
     /**

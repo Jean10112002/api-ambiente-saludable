@@ -11,7 +11,7 @@ class Participante extends Model
     use HasFactory;
     public $timestamps = false;
     protected $table = 'participantes';
-    protected $fillable =['nombres','apellido','cedula','email','semestre','telefono'];
+    protected $fillable =['nombres','cedula','email','semestre','telefono'];
 
     public function Post(){
         return $this->hasMany(Post::class);

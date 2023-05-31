@@ -15,6 +15,8 @@ class PostController extends Controller
     public function index()
     {
         //
+        $posts = Post::paginate(10);
+        return response()->json(['Posts'=>$posts]);
     }
 
     /**
@@ -26,6 +28,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $posts = Post::create([
+            'titulo' => $request->titulo,
+            'descripcion' => $request->descripcion,
+            'lugar' => $request->lugar,
+            'ciudad' => $request->ciudad,
+            'fecha' => $request->fecha,
+            'estado' => $request->estado,
+            'imagen_id' => $request->imagen_id,
+            'categoria_id' => $request->categoria_id,
+            'participante_id' => $request->participante_id
+        ]);
+        return response()->json(['Se ingreso el Post con exito','Post' => $posts]);
     }
 
     /**

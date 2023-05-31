@@ -31,11 +31,11 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
         Route::post('logout-jurado',  'logout');
     });
     Route::resource('interaccion/comentario',ComentarioController::class)->except('update','destroy','show');
+    Route::resource('participante',ParticipanteController::class)->except('update','destroy');
     Route::resource('categoria',CategoriaController::class)->except('update','destroy','show');
     Route::resource('post',PostController::class)->except('update','destroy');
-
     Route::resource('interaccion/like',LikeController::class)->except('update','destroy','show');
-    Route::resource('participante',ParticipanteController::class)->except('update','destroy');
+
     Route::resource('post/imagen',ImagenController::class)->except('update','destroy');
 });
 Route::post('/login-jurado',[JuradoController::class,'login']);
