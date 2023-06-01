@@ -15,7 +15,7 @@ class Calificacion extends Model
 
     public function Jurado(): BelongsTo
     {
-        return $this->belongsTo(Jurado::class);
+        return $this->belongsTo(User::class);
     }
     public function Post():BelongsTo{
         return $this->belongsTo(Post::class);
