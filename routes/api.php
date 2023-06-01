@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CalificacionController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\Comentario_Post;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ImagenController;
 use App\Http\Controllers\UserController;
@@ -31,7 +32,8 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
-    Route::apiResource('interaccion/comentario',ComentarioController::class)->only('index');
+    Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
+    Route::apiResource('comentarios',ComentarioController::class)->only('index');
     Route::apiResource('participante',ParticipanteController::class)->only('show','index');
     Route::apiResource('categoria',CategoriaController::class)->only('index');
     Route::apiResource('post',PostController::class)->only('index','store','destroy');
