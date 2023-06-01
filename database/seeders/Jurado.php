@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Jurado as ModelsJurado;
+use App\Models\User as ModelsJurado;
 use Illuminate\Database\Seeder;
 
 class Jurado extends Seeder

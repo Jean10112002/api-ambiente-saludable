@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\CalificacionController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\ImagenController;
-use App\Http\Controllers\JuradoController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\ParticipanteController;
 use App\Http\Controllers\PostController;
@@ -26,17 +27,17 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 Route::group( ['middleware' => ["auth:sanctum"]], function(){
-    Route::controller(JuradoController::class)->group(function () {
+    Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
-    Route::resource('interaccion/comentario',ComentarioController::class)->except('update','destroy','show');
-    Route::resource('participante',ParticipanteController::class)->except('update','destroy');
-    Route::resource('categoria',CategoriaController::class)->except('update','destroy','show');
-    Route::resource('post',PostController::class)->except('update','destroy');
-    Route::resource('interaccion/like',LikeController::class)->except('update','destroy','show');
-
-    Route::resource('post/imagen',ImagenController::class)->except('update','destroy');
+    Route::apiResource('interaccion/comentario',ComentarioController::class)->only('index');
+    Route::apiResource('participante',ParticipanteController::class)->only('show','index');
+    Route::apiResource('categoria',CategoriaController::class)->except('update','destroy','show');
+    Route::apiResource('post',PostController::class)->only('index');
+    Route::apiResource('interaccion/like',LikeController::class)->only('store');
+    Route::apiResource('post/imagen',ImagenController::class)->only('store');
+    Route::apiResource('calificaciones',CalificacionController::class)->only('store');
 });
-Route::post('/login-jurado',[JuradoController::class,'login']);
+Route::post('/login-jurado',[UserController::class,'login']);
 

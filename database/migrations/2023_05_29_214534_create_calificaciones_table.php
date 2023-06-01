@@ -28,8 +28,8 @@ return new class extends Migration
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
             //Jurado
-            $table->foreignId('jurado_id')
-            ->constrained('jurados')
+            $table->foreignId('user_id')
+            ->constrained('users')
             ->cascadeOnDelete()
             ->cascadeOnUpdate();
         });

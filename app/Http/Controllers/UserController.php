@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jurado;
+use App\Models\User as Jurado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-class JuradoController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
