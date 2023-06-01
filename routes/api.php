@@ -33,11 +33,11 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
     });
     Route::apiResource('interaccion/comentario',ComentarioController::class)->only('index');
     Route::apiResource('participante',ParticipanteController::class)->only('show','index');
-    Route::apiResource('categoria',CategoriaController::class)->except('update','destroy','show');
-    Route::apiResource('post',PostController::class)->only('index');
+    Route::apiResource('categoria',CategoriaController::class)->only('index');
+    Route::apiResource('post',PostController::class)->only('index','store','destroy');
     Route::apiResource('interaccion/like',LikeController::class)->only('store');
     Route::apiResource('post/imagen',ImagenController::class)->only('store');
-    Route::apiResource('calificaciones',CalificacionController::class)->only('store');
+    Route::apiResource('calificacion',CalificacionController::class)->only('store');
 });
 Route::post('/login-jurado',[UserController::class,'login']);
 
