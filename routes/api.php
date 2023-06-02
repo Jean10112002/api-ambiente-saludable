@@ -26,29 +26,29 @@ use Illuminate\Support\Facades\Route;
 /* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); */
-Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
-Route::apiResource('comentarios',ComentarioController::class)->only('index');
-Route::apiResource('participante',ParticipanteController::class)->only('show','index');
-Route::apiResource('categoria',CategoriaController::class)->only('index');
-Route::apiResource('post',PostController::class)->only('index','store','destroy');
-Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
-Route::apiResource('post/imagen',ImagenController::class)->only('store');
-Route::apiResource('calificacion',CalificacionController::class)->only('store');
-Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
-Route::apiResource('post/imagen',ImagenController::class)->only('store');
-Route::apiResource('post',PostController::class)->only('index','store','destroy');
-Route::apiResource('categoria',CategoriaController::class)->only('index');
-Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
-Route::apiResource('comentarios',ComentarioController::class)->only('index');
-Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
-Route::apiResource('participante',ParticipanteController::class)->only('show','index');
-Route::get('participante/search/{cedula}',[ParticipanteController::class,'showByCedula']);
+
 Route::group( ['middleware' => ["auth:sanctum"]], function(){
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
-
+    Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
+    Route::apiResource('comentarios',ComentarioController::class)->only('index');
+    Route::apiResource('participante',ParticipanteController::class)->only('show','index');
+    Route::apiResource('categoria',CategoriaController::class)->only('index');
+    Route::apiResource('post',PostController::class)->only('index','store','destroy');
+    Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
+    Route::apiResource('post/imagen',ImagenController::class)->only('store');
+    Route::apiResource('calificacion',CalificacionController::class)->only('store');
+    Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
+    Route::apiResource('post/imagen',ImagenController::class)->only('store');
+    Route::apiResource('post',PostController::class)->only('index','store','destroy');
+    Route::apiResource('categoria',CategoriaController::class)->only('index');
+    Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
+    Route::apiResource('comentarios',ComentarioController::class)->only('index');
+    Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
+    Route::apiResource('participante',ParticipanteController::class)->only('show','index');
+    Route::get('participante/search/{cedula}',[ParticipanteController::class,'showByCedula']);
 
 });
 Route::post('/login-jurado',[UserController::class,'login']);
