@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comentario_Post as ComentarioModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class Comentario_Post extends Controller
 {
@@ -11,6 +14,19 @@ class Comentario_Post extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public $rulesComentario=array(
+
+        'fecha' => 'required|date',
+
+);
+    public $mensajes=array(
+
+        'fecha.required' => 'El campo es requerido.',
+        'fecha.date' => 'Solo fecha valida.',
+
+
+
+    );
     public function index()
     {
         //
@@ -25,6 +41,21 @@ class Comentario_Post extends Controller
     public function store(Request $request)
     {
         //
+        $validator= Validator::make($request->all(),$this->rulesComentario,$this->mensajes);
+        if($validator -> fails()){
+            $messages=$validator->getMessageBag();
+            return response()->json([
+                'messages'=>$messages
+            ],500);
+        };
+        $usuario=Auth::guard('sanctum')->user();
+        $comentario =ComentarioModel::create([
+            'fecha'=>$request->fecha,
+            'comentario_id'=>$request->comentario_id,
+            'participante_id'=>$usuario->id,
+            'post_id'=>$request->post_id,
+        ]);
+        return response()->json(['messages'=>'Se creo  con exito.','comentario'=> $comentario]);
     }
 
     /**

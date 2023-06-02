@@ -15,13 +15,15 @@ class ParticipanteController extends Controller
      */
     public $rulesParticipante=array(
 
-        'id' => 'required|integer|exists:participantes,id',
+        'id' => 'integer|exists:participantes,id',
+        'cedula'=>'exists:participantes,cedula'
 );
     public $mensajes=array(
 
-        'id.required' => 'Se requiere el identificador.',
         'id.integer' => 'Solo se aceptan numeros.',
         'id.exists' => 'Solo identificadores existentes.',
+        'cedula.exists' => 'Solo cedulas existentes.',
+
 
     );
     public function index()
@@ -49,21 +51,28 @@ class ParticipanteController extends Controller
      * @param  \App\Models\Participante  $participante
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $id)
+    public function show($id)
     {
         //
-        $validator= Validator::make($request->all(),$this->rulesParticipante,$this->mensajes);
-        if($validator -> fails()){
-            $messages=$validator->getMessageBag();
-            return response()->json([
-                'messages'=>$messages
-            ],500);
+
+        $participante = Participante::with('Post','Post.Imagen','Post.Categoria')->find($id);
+        if (!$participante) {
+            return response()->json(['error' => 'Participante no encontrado'], 404);
         }
-        $participante = Participante::find($id);
-        $participante::with('Post')->get();
-        return response()->json([
-            'participante'=>$participante
-        ]);
+
+        return response()->json(['participante' => $participante]);
+
+    }
+    public function showByCedula(Request $request,$cedula)
+    {
+        //
+
+        $participante = Participante::where('cedula', 'LIKE', '%' . $cedula . '%')->get();
+        if ($participante->isEmpty()) {
+            return response()->json(['error' => 'Ingrese un numero de cedula existente.'], 404);
+        }
+
+        return response()->json(['participante' => $participante]);
 
     }
 

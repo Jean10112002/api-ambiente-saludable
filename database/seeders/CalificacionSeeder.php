@@ -15,13 +15,6 @@ class CalificacionSeeder extends Seeder
      */
     public function run()
     {
-        $id=1;
-        $post_id=1;
-        $datos=[
-            'id'=>$id,
-            'post_id'=>$post_id
-        ];
-        // 4 calificaciones por cada post
-        Calificacion::factory(30)->create($datos);
+
     }
 }
