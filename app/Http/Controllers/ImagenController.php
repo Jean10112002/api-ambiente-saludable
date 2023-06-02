@@ -98,6 +98,6 @@ class ImagenController extends Controller
     {
         //
 
-        
+
     }
 }
