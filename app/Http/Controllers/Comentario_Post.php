@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comentario_Post as ComentarioModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class Comentario_Post extends Controller
 {
@@ -25,6 +27,14 @@ class Comentario_Post extends Controller
     public function store(Request $request)
     {
         //
+        $usuario=Auth::guard('sanctum')->user();
+        $comentario =ComentarioModel::create([
+            'fecha'=>$request->fecha,
+            'comentario_id'=>$request->comentario_id,
+            'participante_id'=>$usuario->id,
+            'post_id'=>$request->post_id,
+        ]);
+        return response()->json(['messages'=>'Se creo  con exito.','comentario'=> $comentario]);
     }
 
     /**

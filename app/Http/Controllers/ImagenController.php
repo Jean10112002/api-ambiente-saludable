@@ -97,5 +97,7 @@ class ImagenController extends Controller
     public function destroy(Imagen $imagen)
     {
         //
+
+        
     }
 }
