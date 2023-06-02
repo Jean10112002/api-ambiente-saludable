@@ -47,6 +47,14 @@ class Jurado extends Seeder
             "apellido"=>"admin",
             "cedula"=>"1313626440",
             "email"=>"admin@hotmail.com",
-            "password"=>bcrypt('admin123')]);
+            "password"=>bcrypt('admin123'),
+        "rol"=>"admin"]);
+        ModelsJurado::create([
+            "nombre"=>"jurado",
+            "apellido"=>"juradoapellido",
+            "cedula"=>"1312412220",
+            "email"=>"jurado@hotmail.com",
+            "password"=>bcrypt('jurado123'),
+        "rol"=>"jurado"]);
     }
 }

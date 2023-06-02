@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('semestre');
             $table->string('telefono');
+            $table->string('rol');
         });
     }
 

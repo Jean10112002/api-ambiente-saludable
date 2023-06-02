@@ -61,4 +61,7 @@ class CalificacionController extends Controller
     {
         //
     }
+    public function calificacionReporte(){
+
+    }
 }

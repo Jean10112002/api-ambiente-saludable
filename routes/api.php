@@ -40,6 +40,7 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
         Route::post('logout-jurado',  'logout');
     });
     Route::apiResource('calificacion',CalificacionController::class)->only('store');
+    Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
 });
 Route::post('/login-jurado',[UserController::class,'login']);
 
