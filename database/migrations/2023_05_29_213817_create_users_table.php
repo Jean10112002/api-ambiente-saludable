@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('cedula')->unique();
             $table->string('email');
             $table->string('password');
+            $table->string('rol');
         });
     }
 
