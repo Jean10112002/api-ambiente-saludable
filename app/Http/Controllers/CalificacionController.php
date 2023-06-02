@@ -66,7 +66,7 @@ class CalificacionController extends Controller
             'creatividad'=>$request->creatividad,
             'tecnica'=>$request->tecnica,
             'post_id'=>$request->post_id,
-            'user_id'=>$usuario->id,
+            'user_id'=>$request->user_id,
             $total =($request->contenido+$request->organizacion_estatica +$request->creatividad + $request->tecnica)/4,
             'total'=>$total
         ]);
