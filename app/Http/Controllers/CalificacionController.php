@@ -67,7 +67,7 @@ class CalificacionController extends Controller
             'tecnica'=>$request->tecnica,
             'post_id'=>$request->post_id,
             'user_id'=>$request->user_id,
-            $total =($request->contenido+$request->organizacion_estatica +$request->creatividad + $request->tecnica)/4,
+            $total =(($request->contenido*0.30)+($request->organizacion_estatica*0.25) +($request->creatividad*0.20) + ($request->tecnica*0.25)),
             'total'=>$total
         ]);
         return response()->json(['Message'=>'Se registro las calificaciones :','Calificacion'=> $calificacion,'Total' => $total]);

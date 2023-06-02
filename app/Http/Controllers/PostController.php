@@ -81,6 +81,7 @@ class PostController extends Controller
             'categoria_id' => $request->categoria_id,
             'participante_id' =>$request->participante_id ,
         ]);
+
         return response()->json(['Se ingreso el Post con exito','Post' => $posts]);
 
     }

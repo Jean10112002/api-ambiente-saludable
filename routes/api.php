@@ -26,13 +26,7 @@ use Illuminate\Support\Facades\Route;
 /* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); */
-
-Route::group( ['middleware' => ["auth:sanctum"]], function(){
-    Route::controller(UserController::class)->group(function () {
-        Route::get('user-profile', 'userProfile');
-        Route::post('logout-jurado',  'logout');
-    });
-    Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
+Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
     Route::apiResource('comentarios',ComentarioController::class)->only('index');
     Route::apiResource('participante',ParticipanteController::class)->only('show','index');
     Route::apiResource('categoria',CategoriaController::class)->only('index');
@@ -49,6 +43,12 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
     Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
     Route::apiResource('participante',ParticipanteController::class)->only('show','index');
     Route::get('participante/search/{cedula}',[ParticipanteController::class,'showByCedula']);
+Route::group( ['middleware' => ["auth:sanctum"]], function(){
+    Route::controller(UserController::class)->group(function () {
+        Route::get('user-profile', 'userProfile');
+        Route::post('logout-jurado',  'logout');
+    });
+
 
 });
 Route::post('/login-jurado',[UserController::class,'login']);
