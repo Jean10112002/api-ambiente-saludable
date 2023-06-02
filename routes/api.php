@@ -37,7 +37,7 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
     Route::apiResource('participante',ParticipanteController::class)->only('show','index');
     Route::apiResource('categoria',CategoriaController::class)->only('index');
     Route::apiResource('post',PostController::class)->only('index','store','destroy');
-    Route::apiResource('interaccion/like',LikeController::class)->only('store');
+    Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
     Route::apiResource('post/imagen',ImagenController::class)->only('store');
     Route::apiResource('calificacion',CalificacionController::class)->only('store');
     Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);

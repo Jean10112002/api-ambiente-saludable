@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('lugar');
             $table->string('ciudad');
             $table->date('fecha');
-            $table->boolean('estado');
+            $table->boolean('estado')->default(0);
         //Relaciones
         //imagen
             $table->foreignId('imagen_id')

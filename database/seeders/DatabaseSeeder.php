@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Calificacion;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,9 +22,15 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
         $this->call(CsvSeeder::class);
         $this->call(Jurado::class);
         $this->call(Comentario::class);
         $this->call(Categoria::class);
+        $this->call(ImageSeeder::class);
+        $this->call(PostSeeder::class);
+         $this->call(ComentarioPostSeeder::class);
+        $this->call(LikeSeeder::class);
+        $this->call(CalificacionSeeder::class);
     }
 }
