@@ -29,7 +29,7 @@ class LikeController extends Controller
         //
         $usuario=Auth::guard('sanctum')->user();
         $like = Like::create([
-            'participante_id'=>$usuario,
+            'participante_id'=>$usuario->id,
             'post_id'=>$request->post_id
         ]);
         return response()->json(['Se Coloco el like ','Post' => $like]);
@@ -64,8 +64,14 @@ class LikeController extends Controller
      * @param  \App\Models\Like  $like
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Like $like)
+    public function destroy( $id)
     {
         //
+        $like = Like::find($id)->delete();
+        return response()->json([
+            'messages'=>'Se Elimino con exito','like'=>$like
+        ]);
+
+
     }
 }

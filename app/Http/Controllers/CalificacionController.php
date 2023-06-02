@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Calificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class CalificacionController extends Controller
 {
@@ -12,6 +14,30 @@ class CalificacionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public $rulesCalificacion=array(
+
+        'contenido' => 'required|numeric',
+        'organizacion_estatica' => 'required|numeric',
+        'creatividad' => 'required|numeric',
+        'tecnica' => 'required|numeric',
+);
+    public $mensajes=array(
+
+        'contenido.required' => 'Se requiere que llene el campo.',
+        'contenido.numeric' => 'Solo numeros.',
+        'organizacion_estatica.required' => 'Se requiere que llene el campo.',
+        'organizacion_estatica.numeric' => 'Solo numeros.',
+        'creatividad.required' => 'Se requiere que llene el campo.',
+        'creatividad.numeric' => 'Solo numeros.',
+        'tecnica.required' => 'Se requiere que llene el campo.',
+        'tecnica.numeric' => 'Solo numeros.',
+
+
+
+
+
+    );
     public function index()
     {
         //
@@ -26,6 +52,25 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
+        $validator= Validator::make($request->all(),$this->rulesCalificacion,$this->mensajes);
+        if($validator -> fails()){
+            $messages=$validator->getMessageBag();
+            return response()->json([
+                'messages'=>$messages
+            ],500);
+        };
+        $usuario=Auth::guard('sanctum')->user();
+        $calificacion = Calificacion::create([
+            'contenido'=>$request->contenido,
+            'organizacion_estatica'=>$request->organizacion_estatica,
+            'creatividad'=>$request->creatividad,
+            'tecnica'=>$request->tecnica,
+            'post_id'=>$request->post_id,
+            'user_id'=>$usuario->id,
+            $total =($request->contenido+$request->organizacion_estatica +$request->creatividad + $request->tecnica)/4,
+            'total'=>$total
+        ]);
+        return response()->json(['Message'=>'Se registro las calificaciones :','Calificacion'=> $calificacion,'Total' => $total]);
     }
 
     /**
