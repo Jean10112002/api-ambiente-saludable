@@ -50,10 +50,45 @@ class Jurado extends Seeder
             "password"=>bcrypt('admin123'),
         "rol"=>"admin"]);
         ModelsJurado::create([
-            "nombre"=>"jurado",
-            "apellido"=>"juradoapellido",
+            "nombre"=>"jurado1",
+            "apellido"=>"jurado1apellido",
             "cedula"=>"1312412220",
-            "email"=>"jurado@hotmail.com",
+            "email"=>"jurado1@hotmail.com",
+            "password"=>bcrypt('jurado123'),
+        "rol"=>"jurado"]);
+        ModelsJurado::create([
+            "nombre"=>"jurado2",
+            "apellido"=>"jurado2apellido",
+            "cedula"=>"13124122220",
+            "email"=>"jurado2@hotmail.com",
+            "password"=>bcrypt('jurado123'),
+        "rol"=>"jurado"]);
+        ModelsJurado::create([
+            "nombre"=>"jurado3",
+            "apellido"=>"jurado3apellido",
+            "cedula"=>"131232220",
+            "email"=>"jurado3@hotmail.com",
+            "password"=>bcrypt('jurado123'),
+        "rol"=>"jurado"]);
+        ModelsJurado::create([
+            "nombre"=>"jurado4",
+            "apellido"=>"jurado4apellido",
+            "cedula"=>"1312413044",
+            "email"=>"jurado4@hotmail.com",
+            "password"=>bcrypt('jurado123'),
+        "rol"=>"jurado"]);
+        ModelsJurado::create([
+            "nombre"=>"jurado5",
+            "apellido"=>"jurado5apellido",
+            "cedula"=>"131245220",
+            "email"=>"jurado5@hotmail.com",
+            "password"=>bcrypt('jurado123'),
+        "rol"=>"jurado"]);
+        ModelsJurado::create([
+            "nombre"=>"jurado6",
+            "apellido"=>"jurado6apellido",
+            "cedula"=>"1316220",
+            "email"=>"jurado6@hotmail.com",
             "password"=>bcrypt('jurado123'),
         "rol"=>"jurado"]);
     }
