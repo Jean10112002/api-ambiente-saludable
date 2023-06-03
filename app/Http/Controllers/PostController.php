@@ -46,7 +46,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::paginate(10);
+        $posts = Post::with('Like','Calificacion','Comentario_Post.Comentario')->paginate(10);
         return response()->json(['Posts'=>$posts]);
     }
 
