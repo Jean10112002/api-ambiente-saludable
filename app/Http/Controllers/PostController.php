@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -92,11 +93,18 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function showCategoria( $idcategoria)
     {
         //
+        $posts = Post::with('Categoria')->where('categoria_id',$idcategoria)->paginate(10);
+        return response()->json(['PostCategoria' => $posts]);
     }
 
+    public function estadoPost(){
+        $post = Post::where('estado',0)->paginate(10);
+        return response()->json(['EstadoPost'=>$post]);
+
+    }
     /**
      * Update the specified resource in storage.
      *
