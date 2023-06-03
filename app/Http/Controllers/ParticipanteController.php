@@ -63,7 +63,7 @@ class ParticipanteController extends Controller
         return response()->json(['participante' => $participante]);
 
     }
-    public function showByCedula(Request $request,$cedula)
+    public function showByCedula($cedula)
     {
         //
 
