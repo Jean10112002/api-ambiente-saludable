@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Calificacion;
+use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -32,6 +33,7 @@ class CalificacionSeeder extends Seeder
                     "post_id" => $i,
                     "user_id" => $j
                 ]);
+                Post::find($i)->update(['estado'=>1]);
             }
             # code...
         }

@@ -26,25 +26,26 @@ use Illuminate\Support\Facades\Route;
 /* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); */
-
+Route::get('participante/search/{cedula}',[ParticipanteController::class,'showByCedula']);
+Route::apiResource('participante',ParticipanteController::class)->only('show','index');
+Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
+Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
+Route::apiResource('comentarios',ComentarioController::class)->only('index');
+Route::apiResource('calificacion',CalificacionController::class)->only('store');
+Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
+Route::apiResource('post/imagen',ImagenController::class)->only('store');
+Route::apiResource('post',PostController::class)->only('index','store','destroy');
+Route::apiResource('categoria',CategoriaController::class)->only('index');
+Route::get('post/search-categoria/{id}',[PostController::class,'showCategoria']);
+Route::get('post/search-sincalificar',[PostController::class,'postSinCalificarSinCategoria']);
+Route::get('post/search-categoria-sincalificar/{id}',[PostController::class,'postSinCalificarConCategoria']);
 
 Route::group( ['middleware' => ["auth:sanctum"]], function(){
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
-    Route::get('participante/search/{cedula}',[ParticipanteController::class,'showByCedula']);
-    Route::apiResource('participante',ParticipanteController::class)->only('show','index');
-    Route::apiResource('interaccion/like',LikeController::class)->only('store','destroy');
-    Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
-    Route::apiResource('comentarios',ComentarioController::class)->only('index');
-    Route::apiResource('calificacion',CalificacionController::class)->only('store');
-    Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
-    Route::apiResource('post/imagen',ImagenController::class)->only('store');
-    Route::apiResource('post',PostController::class)->only('index','store','destroy');
-    Route::apiResource('categoria',CategoriaController::class)->only('index');
-    Route::get('post/search/{id}',[PostController::class,'showCategoria']);
-    Route::get('post/estado',[PostController::class,'estadoPost']);
+
 });
 Route::post('/login-jurado',[UserController::class,'login']);
 

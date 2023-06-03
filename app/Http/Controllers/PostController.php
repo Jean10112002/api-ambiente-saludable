@@ -95,15 +95,21 @@ class PostController extends Controller
     public function showCategoria( $idcategoria)
     {
         //
-        $posts = Post::with('Categoria')->where('categoria_id',$idcategoria)->paginate(10);
+        $posts = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('categoria_id',$idcategoria)->paginate(10);
         return response()->json(['PostCategoria' => $posts]);
     }
 
-    public function estadoPost(){
-        $post = Post::where('estado',0)->paginate(10);
-        return response()->json(['EstadoPost'=>$post]);
+    public function postSinCalificarSinCategoria(){
+        $post = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('estado',0)->paginate(10);
+        return response()->json(['Post'=>$post]);
 
     }
+    public function postSinCalificarConCategoria($categoria_id){
+        $post = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('estado','=',0)->where('categoria_id','=',$categoria_id)->paginate(10);
+        return response()->json(['Post'=>$post]);
+
+    }
+
     /**
      * Update the specified resource in storage.
      *
