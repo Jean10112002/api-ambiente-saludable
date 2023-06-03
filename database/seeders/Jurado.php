@@ -91,5 +91,12 @@ class Jurado extends Seeder
             "email"=>"jurado6@hotmail.com",
             "password"=>bcrypt('jurado123'),
         "rol"=>"jurado"]);
+        ModelsJurado::create([
+            "nombre"=>"participante",
+            "apellido"=>"participante1",
+            "cedula"=>"131622123123210",
+            "email"=>"participante@hotmail.com",
+            "password"=>bcrypt('participante123'),
+        "rol"=>"participante"]);
     }
 }
