@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Like;
+use App\Models\Participante;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,9 +30,11 @@ class LikeController extends Controller
     {
         //
         $usuario=Auth::guard('sanctum')->user();
+
+
         $like = Like::create([
-            'participante_id'=>$usuario->id,
-            'post_id'=>$request->post_id
+            'participante_id'=>$request->participante_id,
+            'post_id'=>$request->post_id,
         ]);
         return response()->json(['Se Coloco el like ','Post' => $like]);
     }

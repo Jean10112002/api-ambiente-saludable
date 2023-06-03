@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calificacion;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -59,6 +60,7 @@ class CalificacionController extends Controller
                 'messages'=>$messages
             ],500);
         };
+
         $usuario=Auth::guard('sanctum')->user();
         $calificacion = Calificacion::create([
             'contenido'=>$request->contenido,
@@ -66,7 +68,7 @@ class CalificacionController extends Controller
             'creatividad'=>$request->creatividad,
             'tecnica'=>$request->tecnica,
             'post_id'=>$request->post_id,
-            'user_id'=>$request->user_id,
+            'user_id'=>$usuario->id,
             $total =(($request->contenido*0.30)+($request->organizacion_estatica*0.25) +($request->creatividad*0.20) + ($request->tecnica*0.25)),
             'total'=>$total
         ]);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Models\Imagen;
+use App\Models\Participante;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,9 +42,6 @@ class PostController extends Controller
         'imagen_id.required'=>'Se requiere el id de imagen',
         'categoria_id.required'=>'Se requiere el id de la categoria',
         'participante_id.required'=>'Se requiere el id del participante',
-
-
-
     );
     public function index()
     {

@@ -25,7 +25,7 @@ class ImagenController extends Controller
         'imagen.image' => 'Solo se permite imagenes.',
         'imagen.mimes' => 'Tipo de imagen no valido.',
         'imagen.max' => 'Esta imagen supero el tamaño de envio.',
-        'imagen.unique' => 'Solo se puede subir la imagen al menos una vez.',
+
 
     );
     public function index()

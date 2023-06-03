@@ -71,7 +71,6 @@ class ParticipanteController extends Controller
         if ($participante->isEmpty()) {
             return response()->json(['error' => 'Ingrese un numero de cedula existente.'], 404);
         }
-
         return response()->json(['participante' => $participante]);
 
     }
