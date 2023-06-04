@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Calificacion;
+use App\Models\Categoria;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class CalificacionController extends Controller
@@ -16,14 +18,14 @@ class CalificacionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public $rulesCalificacion=array(
+    public $rulesCalificacion = array(
 
         'contenido' => 'required|numeric',
         'organizacion_estatica' => 'required|numeric',
         'creatividad' => 'required|numeric',
         'tecnica' => 'required|numeric',
-);
-    public $mensajes=array(
+    );
+    public $mensajes = array(
 
         'contenido.required' => 'Se requiere que llene el campo.',
         'contenido.numeric' => 'Solo numeros.',
@@ -53,26 +55,26 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
-        $validator= Validator::make($request->all(),$this->rulesCalificacion,$this->mensajes);
-        if($validator -> fails()){
-            $messages=$validator->getMessageBag();
+        $validator = Validator::make($request->all(), $this->rulesCalificacion, $this->mensajes);
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
             return response()->json([
-                'messages'=>$messages
-            ],500);
+                'messages' => $messages
+            ], 500);
         };
 
-        $usuario=Auth::guard('sanctum')->user();
+        $usuario = Auth::guard('sanctum')->user();
         $calificacion = Calificacion::create([
-            'contenido'=>$request->contenido,
-            'organizacion_estatica'=>$request->organizacion_estatica,
-            'creatividad'=>$request->creatividad,
-            'tecnica'=>$request->tecnica,
-            'post_id'=>$request->post_id,
-            'user_id'=>$usuario->id,
-            $total =(($request->contenido*0.30)+($request->organizacion_estatica*0.25) +($request->creatividad*0.20) + ($request->tecnica*0.25)),
-            'total'=>$total
+            'contenido' => $request->contenido,
+            'organizacion_estatica' => $request->organizacion_estatica,
+            'creatividad' => $request->creatividad,
+            'tecnica' => $request->tecnica,
+            'post_id' => $request->post_id,
+            'user_id' => $usuario->id,
+            $total = (($request->contenido * 0.30) + ($request->organizacion_estatica * 0.25) + ($request->creatividad * 0.20) + ($request->tecnica * 0.25)),
+            'total' => $total
         ]);
-        return response()->json(['Message'=>'Se registro las calificaciones :','Calificacion'=> $calificacion,'Total' => $total]);
+        return response()->json(['Message' => 'Se registro las calificaciones :', 'Calificacion' => $calificacion, 'Total' => $total]);
     }
 
     /**
@@ -108,7 +110,21 @@ class CalificacionController extends Controller
     {
         //
     }
-    public function calificacionReporte(){
+    public function calificacionReporte()
+    {
+        $categorias = Categoria::with('Post', 'Post.Participante', 'Post.Calificacion','Post.Calificacion.User')->get();
 
+        foreach ($categorias as $c) {
+            $posts = $c->Post;
+            foreach ($posts as $post) {
+                $promedioCalificaciones = $post->Calificacion->avg('total');
+                $post->calificacionFinal = $promedioCalificaciones;
+                $post->save();
+            }
+            $c->save();
+        }
+        return response()->json([
+            "Categorias" => $categorias
+        ]);
     }
 }

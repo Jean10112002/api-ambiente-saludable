@@ -32,7 +32,7 @@ Route::apiResource('interaccion/like',LikeController::class)->only('store','dest
 Route::apiResource('interaccion/comentario',Comentario_Post::class)->only('store');
 Route::apiResource('comentarios',ComentarioController::class)->only('index');
 Route::apiResource('calificacion',CalificacionController::class)->only('store');
-Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
+/* Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']); */
 Route::apiResource('post/imagen',ImagenController::class)->only('store');
 Route::apiResource('post',PostController::class)->only('index','store','destroy');
 Route::apiResource('categoria',CategoriaController::class)->only('index');
@@ -47,5 +47,6 @@ Route::group( ['middleware' => ["auth:sanctum"]], function(){
     });
 
 });
+Route::get('calificacion/reporte',[CalificacionController::class,'calificacionReporte']);
 Route::post('/login-jurado',[UserController::class,'login']);
 

@@ -13,7 +13,7 @@ class Calificacion extends Model
     protected $table ='calificaciones';
     protected $fillable = ['total','contenido','organizacion_estatica','creatividad','tecnica','post_id','user_id'];
 
-    public function Jurado(): BelongsTo
+    public function User(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('lugar');
             $table->string('ciudad');
             $table->date('fecha');
+            $table->double('calificacionFinal')->nullable();
             $table->boolean('estado')->default(0);
         //Relaciones
         //imagen
