@@ -46,7 +46,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::with('Like','Calificacion','Comentario_Post.Comentario')->paginate(10);
+        $posts = Post::with('Participante:id,nombres,cedula','Like.Post:id,titulo','Like.Participante:id,nombres','Calificacion','Comentario_Post.Comentario:id,mensaje')->paginate(10);
         return response()->json(['Posts'=>$posts]);
     }
 
@@ -105,7 +105,7 @@ class PostController extends Controller
     public function showCategoria( $idcategoria)
     {
         //
-        $posts = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('categoria_id',$idcategoria)->paginate(10);
+        $posts = Post::with('Categoria:id,nombre','Like.Post:id,titulo','Like.Participante:id,nombres','Calificacion','Comentario_Post.Comentario:id,mensaje')->where('categoria_id',$idcategoria)->paginate(10);
         return response()->json(['PostCategoria' => $posts]);
     }
 
@@ -116,7 +116,7 @@ class PostController extends Controller
             error"=>"no autorizado"],403);
         }
 
-        $post = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('estado',0)->paginate(10);
+        $post = Post::with('Categoria:id,nombre','Like.Post:id,titulo','Like.Participante:id,nombres','Calificacion','Comentario_Post.Comentario:mensaje')->where('estado',0)->paginate(10);
         return response()->json(['Post'=>$post]);
 
     }
@@ -127,7 +127,7 @@ class PostController extends Controller
             error"=>"no autorizado"],403);
         }
 
-        $post = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('estado','=',0)->where('categoria_id','=',$categoria_id)->paginate(10);
+        $post = Post::with('Categoria:id,nombre','Like.Post:id,titulo','Like.Participante:id,nombres','Calificacion','Comentario_Post.Comentario:mensaje')->where('estado','=',0)->where('categoria_id','=',$categoria_id)->paginate(10);
         return response()->json(['Post'=>$post]);
 
     }
