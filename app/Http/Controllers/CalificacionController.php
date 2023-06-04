@@ -55,6 +55,7 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
+        try{
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='jurado'){
             return response()->json(["
@@ -81,6 +82,9 @@ class CalificacionController extends Controller
             'total' => $total
         ]);
         return response()->json(['Message' => 'Se registro las calificaciones :', 'Calificacion' => $calificacion, 'Total' => $total]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**

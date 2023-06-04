@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ImagenController extends Controller
 {
@@ -44,6 +45,7 @@ class ImagenController extends Controller
     public function store(Request $request)
     {
         //
+        try{
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
             return response()->json(["
@@ -69,7 +71,10 @@ class ImagenController extends Controller
 
         ]);
         return response()->json(['messages'=>'Se creo una la imagen con exito.','imagen'=> $imagen]);
-
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+    
     }
 
     /**

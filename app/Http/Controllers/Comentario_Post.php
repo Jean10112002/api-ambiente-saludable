@@ -43,6 +43,7 @@ class Comentario_Post extends Controller
     public function store(Request $request)
     {
         //
+        try{
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
             return response()->json(["
@@ -64,6 +65,9 @@ class Comentario_Post extends Controller
             'post_id'=>$request->post_id,
         ]);
         return response()->json(['messages'=>'Se creo  con exito.','comentario'=> $comentario]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**

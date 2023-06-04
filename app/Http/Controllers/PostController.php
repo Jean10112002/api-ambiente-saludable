@@ -59,6 +59,8 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+
+        try {
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
             return response()->json(["
@@ -88,6 +90,9 @@ class PostController extends Controller
         ]);
 
         return response()->json(['Se ingreso el Post con exito','Post' => $posts]);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
 
     }
 

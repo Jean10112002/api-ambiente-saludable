@@ -26,10 +26,7 @@ use Illuminate\Support\Facades\Route;
 /* Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 }); */
-
-Route::group(['middleware' => ["auth:sanctum"]], function () {
-
-    Route::get('participante/search/{cedula}', [ParticipanteController::class, 'showByCedula']);
+Route::get('participante/search/{cedula}', [ParticipanteController::class, 'showByCedula']);
     Route::apiResource('participante', ParticipanteController::class)->only('show', 'index');
     Route::apiResource('interaccion/like', LikeController::class)->only('store', 'destroy');
     Route::apiResource('interaccion/comentario', Comentario_Post::class)->only('store');
@@ -42,6 +39,9 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::get('post/search-categoria/{id}', [PostController::class, 'showCategoria']);
     Route::get('post/search-sincalificar', [PostController::class, 'postSinCalificarSinCategoria']);
     Route::get('post/search-categoria-sincalificar/{id}', [PostController::class, 'postSinCalificarConCategoria']);
+Route::group(['middleware' => ["auth:sanctum"]], function () {
+
+
 
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');

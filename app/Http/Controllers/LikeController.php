@@ -30,6 +30,7 @@ class LikeController extends Controller
     public function store(Request $request)
     {
         //
+        try{
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
             return response()->json(["
@@ -41,6 +42,9 @@ class LikeController extends Controller
             'post_id'=>$request->post_id,
         ]);
         return response()->json(['Se Coloco el like ','Post' => $like]);
+        } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 
     /**
