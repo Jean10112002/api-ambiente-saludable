@@ -81,6 +81,7 @@ class CalificacionController extends Controller
                 $total = (($request->contenido * 0.30) + ($request->organizacion_estatica * 0.25) + ($request->creatividad * 0.20) + ($request->tecnica * 0.25)),
                 'total' => $total
             ]);
+            Post::find($request->post_id)->update(["estado"=>1]);
             return response()->json(['Message' => 'Se registro las calificaciones :', 'Calificacion' => $calificacion, 'Total' => $total]);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
