@@ -59,6 +59,11 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='participante'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
 
         $validator= Validator::make($request->all(),$this->rulesPost,$this->mensajes);
         if($validator -> fails()){
@@ -100,11 +105,23 @@ class PostController extends Controller
     }
 
     public function postSinCalificarSinCategoria(){
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='jurado'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
+
         $post = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('estado',0)->paginate(10);
         return response()->json(['Post'=>$post]);
 
     }
     public function postSinCalificarConCategoria($categoria_id){
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='jurado'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
+
         $post = Post::with('Categoria','Like','Calificacion','Comentario_Post.Comentario')->where('estado','=',0)->where('categoria_id','=',$categoria_id)->paginate(10);
         return response()->json(['Post'=>$post]);
 
@@ -131,7 +148,13 @@ class PostController extends Controller
     public function destroy( $id)
     {
         //
-        $post = Post::find($id)->delete();
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='admin'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
+
+         Post::find($id)->delete();
         return response()->json([
             'messages'=>'Se Elimino con exito'
         ]);

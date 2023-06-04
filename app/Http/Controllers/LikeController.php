@@ -7,6 +7,7 @@ use App\Models\Participante;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class LikeController extends Controller
 {
@@ -30,7 +31,10 @@ class LikeController extends Controller
     {
         //
         $usuario=Auth::guard('sanctum')->user();
-
+        if($usuario->rol!=='participante'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
 
         $like = Like::create([
             'participante_id'=>$request->participante_id,
@@ -71,6 +75,12 @@ class LikeController extends Controller
     public function destroy( $id)
     {
         //
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='participante'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
+
         $like = Like::find($id)->delete();
         return response()->json([
             'messages'=>'Se Elimino con exito','like'=>$like

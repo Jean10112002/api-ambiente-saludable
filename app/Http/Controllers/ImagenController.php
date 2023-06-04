@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Imagen;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class ImagenController extends Controller
@@ -43,6 +44,12 @@ class ImagenController extends Controller
     public function store(Request $request)
     {
         //
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='participante'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
+
         $validator= Validator::make($request->all(),$this->rulesImagenes,$this->mensajes);
         if($validator -> fails()){
             $messages=$validator->getMessageBag();

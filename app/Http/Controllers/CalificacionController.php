@@ -55,6 +55,12 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
+        $usuario=Auth::guard('sanctum')->user();
+        if($usuario->rol!=='jurado'){
+            return response()->json(["
+            error"=>"no autorizado"],403);
+        }
+
         $validator = Validator::make($request->all(), $this->rulesCalificacion, $this->mensajes);
         if ($validator->fails()) {
             $messages = $validator->getMessageBag();
