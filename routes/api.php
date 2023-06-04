@@ -42,12 +42,12 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::get('post/search-sincalificar', [PostController::class, 'postSinCalificarSinCategoria']);
     Route::get('post/search-categoria-sincalificar/{id}', [PostController::class, 'postSinCalificarConCategoria']);
 
+    Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
 });
-Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);
 
 
 
