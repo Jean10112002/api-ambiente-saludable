@@ -53,6 +53,9 @@ class Kernel extends HttpKernel
      * @var array<string, class-string|string>
      */
     protected $routeMiddleware = [
+        'daterange' => \App\Http\Middleware\DateRangeMiddleware::class,
+        'daterangeReporte' => \App\Http\Middleware\DateRangeReporteMiddleware::class,
+        'daterangeCalificar' => \App\Http\Middleware\DateRangeCalificarMiddleware::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'auth.session' => \Illuminate\Session\Middleware\AuthenticateSession::class,
