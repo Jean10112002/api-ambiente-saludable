@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('nombres');
             $table->string('cedula')->unique();
             $table->string('email')->unique();
+            $table->string('password')->unique();
             $table->string('semestre');
             $table->string('telefono');
             $table->string('rol')->default('participante');

@@ -44,8 +44,10 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
 
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
-        Route::post('logout-jurado',  'logout');
+        Route::post('logout',  'logout');
     });
+
 });
 Route::post('/login-jurado', [UserController::class, 'login']);
+Route::post('/login-participante', [ParticipanteController::class, 'login']);
 Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);

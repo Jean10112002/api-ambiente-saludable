@@ -5,13 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Laravel\Sanctum\HasApiTokens;
 
 class Participante extends Model
 {
-    use HasFactory;
+    use HasFactory,HasApiTokens;
     public $timestamps = false;
     protected $table = 'participantes';
-    protected $fillable =['nombres','cedula','email','semestre','telefono','rol'];
+    protected $fillable =['nombres','cedula','email','password','semestre','telefono','rol'];
+    protected $hidden = [
+        'password'
+    ];
 
     public function Post(){
         return $this->hasMany(Post::class);
