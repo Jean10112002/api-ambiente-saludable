@@ -70,6 +70,12 @@ class CalificacionController extends Controller
                 'messages' => $messages
             ], 500);
         };
+        $calificacionExistente = Calificacion::where('user_id', $usuario->id)
+        ->where('post_id', $request->post_id)
+        ->first();
+        if ($calificacionExistente) {
+            return response()->json(['error' => 'El usuario ya le ha dado calificacion a este post'], 400);
+        }
         $total = (($request->contenido * 0.30) + ($request->organizacion_estatica * 0.25) + ($request->creatividad * 0.20) + ($request->tecnica * 0.25));
         try {
             $calificacion = Calificacion::create([

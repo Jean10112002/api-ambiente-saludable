@@ -29,7 +29,6 @@ class CsvSeeder extends Seeder
                 "email"=>$row[3],
                 "semestre"=>$row[4],
                 "telefono"=>$row[6],
-                "rol"=>"participante"
             ]);
         }
     }

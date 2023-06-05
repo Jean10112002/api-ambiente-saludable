@@ -4,7 +4,25 @@ namespace Database\Seeders;
 
 use App\Models\User as ModelsJurado;
 use Illuminate\Database\Seeder;
+use PhpParser\Node\Expr\Cast\Object_;
 
+class Persona
+{
+    public $nombre;
+    public $apellido;
+    public $telefono;
+    public $email;
+    public $password;
+
+    public function __construct($nombre, $apellido, $telefono, $email, $password)
+    {
+        $this->nombre = $nombre;
+        $this->apellido = $apellido;
+        $this->telefono = $telefono;
+        $this->email = $email;
+        $this->password = $password;
+    }
+}
 class Jurado extends Seeder
 {
     /**
@@ -14,89 +32,29 @@ class Jurado extends Seeder
      */
     public function run()
     {
-        /* ModelsJurado::create([
-            "nombre"=>"",
-            "apellido"=>"",
-            "cedula"=>"",
-            "email"=>"",
-            "password"=>bcrypt('')
+    $jurado1=new Persona('Lisa','W. Brunetti','0939675801','lisabrunetti_396758@hotmail.com','ft1@@00QqZd59l');
+    $jurado2=new Persona('Luis Eladio','Alcívar Loor','0969341677','luiseladio_693416@hotmail.com','257kJM@V2!NdQ*');
+    $jurado3=new Persona('Julia Angelita','Cordero Guillén','0999142496','juliaangelita991424@hotmail.com','0xIfnBdN^1GA15');
+    $jurado4=new Persona('José Gabriel','Viteri Espinoza','0996398175','josegrabriel_963981@hotmail.com','Ac&9hF^2Zom^0q');
+    $jurado5=new Persona('Ana Elizabeth','Ágreda De la Paz','0989560242','anaelizabeth_895602@hotmail.com','nIV1P0%p1h0L^T');
+        $jurados = array($jurado1,$jurado2,$jurado3,$jurado4,$jurado5);
+        ModelsJurado::create([
+            "nombre" => "admin",
+            "apellido" => "admin",
+            "telefono" => "0963150796",
+            "email" => "23sehPw93z040E%*#k3@hotmail.com",
+            "password" => bcrypt('2P5qG7f#1HqJ#2'),
+            "rol" => "admin"
         ]);
-        ModelsJurado::create([
-            "nombre"=>"",
-            "apellido"=>"",
-            "cedula"=>"",
-            "email"=>"",
-            "password"=>bcrypt('')
-        ]);
-        ModelsJurado::create([
-            "nombre"=>"",
-            "apellido"=>"",
-            "cedula"=>"",
-            "email"=>"",
-            "password"=>bcrypt('')
-        ]);
-        ModelsJurado::create([
-            "nombre"=>"",
-            "apellido"=>"",
-            "cedula"=>"",
-            "email"=>"",
-            "password"=>bcrypt('')
-        ]); */
-        ModelsJurado::create([
-            "nombre"=>"admin",
-            "apellido"=>"admin",
-            "cedula"=>"1313626440",
-            "email"=>"admin@hotmail.com",
-            "password"=>bcrypt('admin123'),
-        "rol"=>"admin"]);
-        ModelsJurado::create([
-            "nombre"=>"jurado1",
-            "apellido"=>"jurado1apellido",
-            "cedula"=>"1312412220",
-            "email"=>"jurado1@hotmail.com",
-            "password"=>bcrypt('jurado123'),
-        "rol"=>"jurado"]);
-        ModelsJurado::create([
-            "nombre"=>"jurado2",
-            "apellido"=>"jurado2apellido",
-            "cedula"=>"13124122220",
-            "email"=>"jurado2@hotmail.com",
-            "password"=>bcrypt('jurado123'),
-        "rol"=>"jurado"]);
-        ModelsJurado::create([
-            "nombre"=>"jurado3",
-            "apellido"=>"jurado3apellido",
-            "cedula"=>"131232220",
-            "email"=>"jurado3@hotmail.com",
-            "password"=>bcrypt('jurado123'),
-        "rol"=>"jurado"]);
-        ModelsJurado::create([
-            "nombre"=>"jurado4",
-            "apellido"=>"jurado4apellido",
-            "cedula"=>"1312413044",
-            "email"=>"jurado4@hotmail.com",
-            "password"=>bcrypt('jurado123'),
-        "rol"=>"jurado"]);
-        ModelsJurado::create([
-            "nombre"=>"jurado5",
-            "apellido"=>"jurado5apellido",
-            "cedula"=>"131245220",
-            "email"=>"jurado5@hotmail.com",
-            "password"=>bcrypt('jurado123'),
-        "rol"=>"jurado"]);
-        ModelsJurado::create([
-            "nombre"=>"jurado6",
-            "apellido"=>"jurado6apellido",
-            "cedula"=>"1316220",
-            "email"=>"jurado6@hotmail.com",
-            "password"=>bcrypt('jurado123'),
-        "rol"=>"jurado"]);
-        ModelsJurado::create([
-            "nombre"=>"participante",
-            "apellido"=>"participante1",
-            "cedula"=>"131622123123210",
-            "email"=>"participante@hotmail.com",
-            "password"=>bcrypt('participante123'),
-        "rol"=>"participante"]);
+        foreach ($jurados as $jurado) {
+            ModelsJurado::create([
+                "nombre" => $jurado->nombre,
+                "apellido" => $jurado->apellido,
+                "telefono" => $jurado->telefono,
+                "email" => $jurado->email,
+                "password" => bcrypt($jurado->password),
+                "rol" => "participante"
+            ]);
+        }
     }
 }

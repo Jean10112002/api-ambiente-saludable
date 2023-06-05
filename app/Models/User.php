@@ -17,7 +17,7 @@ class User extends Authenticatable
 
     public $timestamps = false;
     protected $table ='users';
-    protected $fillable =['nombre','apellido','cedula','email','password','rol'];
+    protected $fillable =['nombre','apellido','telefono','email','password','rol'];
 
     public function Calificacion(): HasMany
     {

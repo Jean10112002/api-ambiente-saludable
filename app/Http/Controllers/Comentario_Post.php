@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comentario;
 use App\Models\Comentario_Post as ComentarioModel;
+use App\Models\Comentario_Post as ModelsComentario_Post;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +56,12 @@ class Comentario_Post extends Controller
                 'messages'=>$messages
             ],500);
         };
-
+        $comentarioExistente = ModelsComentario_Post::where('participante_id', $usuario->id)
+        ->where('post_id', $request->post_id)
+        ->first();
+        if ($comentarioExistente) {
+            return response()->json(['error' => 'El usuario ya ha comentado este post'], 400);
+        }
         try{
         $comentario =ComentarioModel::create([
             'fecha'=>$request->fecha,

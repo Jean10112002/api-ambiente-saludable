@@ -50,6 +50,12 @@ class LikeController extends Controller
                 'messages' => $messages
             ], 500);
         };
+        $likeExistente = Like::where('participante_id', $usuario->id)
+        ->where('post_id', $request->post_id)
+        ->first();
+        if ($likeExistente) {
+            return response()->json(['error' => 'El usuario ya le ha dado like a este post'], 400);
+        }
         try {
             $like = Like::create([
                 'participante_id' => $usuario->id,

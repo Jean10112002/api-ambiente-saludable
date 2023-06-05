@@ -73,6 +73,12 @@ class PostController extends Controller
             ], 500);
         };
 
+        $postExistente = Post::where('participante_id', $usuario->id)
+        ->where('categoria_id', $request->categoria_id)
+        ->first();
+        if ($postExistente) {
+            return response()->json(['error' => 'El usuario ya le ha dado subido una imagen a esta categoria'], 400);
+        }
 
 
         try {
