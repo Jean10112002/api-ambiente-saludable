@@ -19,7 +19,7 @@ class ImagenController extends Controller
 
      public $rulesImagenes=array(
 
-        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:24000',
+        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:24000,dimensions:max_width=4032,max_height=4032',
 );
     public $mensajes=array(
 
@@ -27,8 +27,7 @@ class ImagenController extends Controller
         'imagen.image' => 'Solo se permite imagenes.',
         'imagen.mimes' => 'Tipo de imagen no valido.',
         'imagen.max' => 'Esta imagen supero el tamaño de envio.',
-
-
+        'imagen.dimensions' => 'Esta imagen supero el ancho o alto permitido.',
     );
     public function index()
     {
@@ -45,11 +44,9 @@ class ImagenController extends Controller
     public function store(Request $request)
     {
         //
-        try{
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
-            return response()->json(["
-            error"=>"no autorizado"],403);
+            return response()->json(["error"=>"no autorizado"],403);
         }
 
         $validator= Validator::make($request->all(),$this->rulesImagenes,$this->mensajes);
@@ -60,6 +57,7 @@ class ImagenController extends Controller
             ],500);
         }
         $file = request()->file('imagen');
+        try{
         $obj = Cloudinary::upload($file->getRealPath(),['folder'=>'AmbienteSaludable']);
         $imagen_id = $obj->getPublicId();
         $url = $obj->getSecurePath();
@@ -74,7 +72,7 @@ class ImagenController extends Controller
     } catch (\Exception $e) {
         return response()->json(['error' => $e->getMessage()], 500);
     }
-    
+
     }
 
     /**
@@ -106,7 +104,7 @@ class ImagenController extends Controller
      * @param  \App\Models\Imagen  $imagen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Imagen $imagen)
+    public function destroy($id)
     {
         //
 

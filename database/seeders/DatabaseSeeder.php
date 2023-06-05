@@ -23,14 +23,14 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        $this->call(CsvSeeder::class);
+         $this->call(CsvSeeder::class);
         $this->call(Jurado::class);
         $this->call(Comentario::class);
         $this->call(Categoria::class);
-        $this->call(ImageSeeder::class);
+       /*  $this->call(ImageSeeder::class);
         $this->call(PostSeeder::class);
          $this->call(ComentarioPostSeeder::class);
         $this->call(LikeSeeder::class);
-        $this->call(CalificacionSeeder::class);
+        $this->call(CalificacionSeeder::class); */
     }
 }

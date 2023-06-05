@@ -24,6 +24,7 @@ class CalificacionController extends Controller
         'organizacion_estatica' => 'required|numeric',
         'creatividad' => 'required|numeric',
         'tecnica' => 'required|numeric',
+        'post_id'=>'required|numeric',
     );
     public $mensajes = array(
 
@@ -35,6 +36,8 @@ class CalificacionController extends Controller
         'creatividad.numeric' => 'Solo numeros.',
         'tecnica.required' => 'Se requiere que llene el campo.',
         'tecnica.numeric' => 'Solo numeros.',
+        'post_id.required' => 'Se requiere que envie el post',
+        'post_id.numeric' => 'Solo numeros para el id del post',
 
 
 
@@ -55,22 +58,20 @@ class CalificacionController extends Controller
     public function store(Request $request)
     {
         //
+        $usuario = Auth::guard('sanctum')->user();
+        if ($usuario->rol !== 'jurado') {
+            return response()->json(["error" => "no autorizado"], 403);
+        }
+
+        $validator = Validator::make($request->all(), $this->rulesCalificacion, $this->mensajes);
+        if ($validator->fails()) {
+            $messages = $validator->getMessageBag();
+            return response()->json([
+                'messages' => $messages
+            ], 500);
+        };
+        $total = (($request->contenido * 0.30) + ($request->organizacion_estatica * 0.25) + ($request->creatividad * 0.20) + ($request->tecnica * 0.25));
         try {
-            $usuario = Auth::guard('sanctum')->user();
-            if ($usuario->rol !== 'jurado') {
-                return response()->json(["
-            error" => "no autorizado"], 403);
-            }
-
-            $validator = Validator::make($request->all(), $this->rulesCalificacion, $this->mensajes);
-            if ($validator->fails()) {
-                $messages = $validator->getMessageBag();
-                return response()->json([
-                    'messages' => $messages
-                ], 500);
-            };
-
-            $usuario = Auth::guard('sanctum')->user();
             $calificacion = Calificacion::create([
                 'contenido' => $request->contenido,
                 'organizacion_estatica' => $request->organizacion_estatica,
@@ -78,7 +79,6 @@ class CalificacionController extends Controller
                 'tecnica' => $request->tecnica,
                 'post_id' => $request->post_id,
                 'user_id' => $usuario->id,
-                $total = (($request->contenido * 0.30) + ($request->organizacion_estatica * 0.25) + ($request->creatividad * 0.20) + ($request->tecnica * 0.25)),
                 'total' => $total
             ]);
             Post::find($request->post_id)->update(["estado"=>1]);

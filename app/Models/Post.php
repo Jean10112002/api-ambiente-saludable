@@ -27,9 +27,9 @@ class Post extends Model
     public function Calificacion(): HasMany{
         return $this->hasMany(Calificacion::class);
     }
-    public function Comentario_Post(): HasOne
+    public function Comentario_Post(): HasMany
     {
-        return $this->hasOne(Comentario_Post::class);
+        return $this->HasMany(Comentario_Post::class);
     }
     public function Like(): HasOne
     {

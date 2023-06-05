@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
@@ -18,9 +19,9 @@ class User extends Authenticatable
     protected $table ='users';
     protected $fillable =['nombre','apellido','cedula','email','password','rol'];
 
-    public function Calificacion(): HasOne
+    public function Calificacion(): HasMany
     {
-        return $this->hasOne(Calificacion::class);
+        return $this->HasMany(Calificacion::class);
     }
     /**
      * The attributes that should be hidden for serialization.

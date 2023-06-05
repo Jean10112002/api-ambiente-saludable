@@ -28,27 +28,24 @@ use Illuminate\Support\Facades\Route;
 }); */
 
 Route::group(['middleware' => ["auth:sanctum"]], function () {
-    Route::get('participante/search/{cedula}', [ParticipanteController::class, 'showByCedula']);
-    Route::apiResource('participante', ParticipanteController::class)->only('show', 'index');
-    Route::apiResource('interaccion/like', LikeController::class)->only('store', 'destroy');
-    Route::apiResource('interaccion/comentario', Comentario_Post::class)->only('store');
     Route::apiResource('comentarios', ComentarioController::class)->only('index');
-    Route::apiResource('calificacion', CalificacionController::class)->only('store');
-
-    Route::apiResource('post/imagen', ImagenController::class)->only('store');
-    Route::apiResource('post', PostController::class)->only('index', 'store', 'destroy');
     Route::apiResource('categoria', CategoriaController::class)->only('index');
+    Route::apiResource('participante', ParticipanteController::class)->only('show', 'index');
+    Route::get('participante/search/{cedula}', [ParticipanteController::class, 'showByCedula']);
+    Route::apiResource('post/imagen', ImagenController::class)->only('store'); //*TODO solo participante
+    Route::apiResource('post', PostController::class)->only('index', 'store', 'destroy'); //*TODO solo participante store y solo admin destroy
     Route::get('post/search-categoria/{id}', [PostController::class, 'showCategoria']);
-    Route::get('post/search-sincalificar', [PostController::class, 'postSinCalificarSinCategoria']);
-    Route::get('post/search-categoria-sincalificar/{id}', [PostController::class, 'postSinCalificarConCategoria']);
+    Route::get('post/search-sincalificar', [PostController::class, 'postSinCalificarSinCategoria']); //*TODO solo jurado
+    Route::get('post/search-categoria-sincalificar/{id}', [PostController::class, 'postSinCalificarConCategoria']);//*TODO solo jurado
+    Route::apiResource('interaccion/comentario', Comentario_Post::class)->only('store'); //*TODO solo participante
+    Route::apiResource('interaccion/like', LikeController::class)->only('store', 'destroy'); //*TODO solo participante
+    Route::apiResource('calificacion', CalificacionController::class)->only('store');//*TODO solo jurado
 
-    Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);
+
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
         Route::post('logout-jurado',  'logout');
     });
 });
-
-
-
 Route::post('/login-jurado', [UserController::class, 'login']);
+Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);

@@ -43,11 +43,9 @@ class Comentario_Post extends Controller
     public function store(Request $request)
     {
         //
-        try{
         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
-            return response()->json(["
-            error"=>"no autorizado"],403);
+            return response()->json(["error"=>"no autorizado"],403);
         }
 
         $validator= Validator::make($request->all(),$this->rulesComentario,$this->mensajes);
@@ -58,10 +56,11 @@ class Comentario_Post extends Controller
             ],500);
         };
 
+        try{
         $comentario =ComentarioModel::create([
             'fecha'=>$request->fecha,
             'comentario_id'=>$request->comentario_id,
-            'participante_id'=>$request->participante_id,
+            'participante_id'=>$usuario->id,
             'post_id'=>$request->post_id,
         ]);
         return response()->json(['messages'=>'Se creo  con exito.','comentario'=> $comentario]);

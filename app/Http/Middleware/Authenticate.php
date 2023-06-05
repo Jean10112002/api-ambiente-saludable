@@ -26,7 +26,7 @@ class Authenticate extends Middleware
         if (Auth::guard('sanctum')->check()) {
             return $next($request);
         }
-        return response()->json(['error' => 'No autorizado'], 401);
+        return response()->json(['error' => 'No autenticado'], 401);
 
     }
 
