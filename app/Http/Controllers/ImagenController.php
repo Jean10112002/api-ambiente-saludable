@@ -19,7 +19,7 @@ class ImagenController extends Controller
 
      public $rulesImagenes=array(
 
-        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:24000,dimensions:max_width=4032,max_height=4032',
+        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000,dimensions:max_width=4032,max_height=4032',
 );
     public $mensajes=array(
 

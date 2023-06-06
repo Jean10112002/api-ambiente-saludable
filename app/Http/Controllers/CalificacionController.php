@@ -129,6 +129,10 @@ class CalificacionController extends Controller
     }
     public function calificacionReporte()
     {
+        $usuario = Auth::guard('sanctum')->user();
+        if ($usuario->rol !== 'admin') {
+            return response()->json(["error" => "no autorizado"], 403);
+        }
         $categorias = Categoria::with(['Post' => function($query){
             $query->orderBy('calificacionFinal', 'desc');
         },'Post.Participante', 'Post.Calificacion', 'Post.Calificacion.User'])
