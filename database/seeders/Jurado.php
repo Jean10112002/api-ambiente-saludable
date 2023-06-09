@@ -53,7 +53,7 @@ class Jurado extends Seeder
                 "telefono" => $jurado->telefono,
                 "email" => $jurado->email,
                 "password" => bcrypt($jurado->password),
-                "rol" => "participante"
+                "rol" => "jurado"
             ]);
         }
     }
