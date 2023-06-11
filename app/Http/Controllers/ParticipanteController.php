@@ -130,13 +130,13 @@ class ParticipanteController extends Controller
             }  else {
             return response()->json([
                 "status" => 0,
-                "messages" => "credenciales incorrectas",
+                "error" => "credenciales incorrectas",
             ], 500);
         }
     }else{
         return response()->json([
             "status" => 0,
-            "messages" => "Usuario no registrado",
+            "error" => "Usuario no registrado",
         ], 404);
     }
 }
