@@ -31,9 +31,9 @@ class Post extends Model
     {
         return $this->HasMany(Comentario_Post::class);
     }
-    public function Like(): HasOne
+    public function Like(): HasMany
     {
-        return $this->hasOne(Like::class);
+        return $this->HasMany(Like::class);
     }
 
 }

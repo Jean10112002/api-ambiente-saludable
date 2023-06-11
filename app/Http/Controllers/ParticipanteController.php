@@ -66,7 +66,7 @@ class ParticipanteController extends Controller
     {
         //
 
-        $participante = Participante::with('Post','Post.Imagen','Post.Categoria')->find($id);
+        $participante = Participante::with('Post','Post.Imagen','Post.Categoria','Post.Like','Post.Comentario_Post','Post.Like')->find($id);
         if (!$participante) {
             return response()->json(['error' => 'Participante no encontrado'], 404);
         }
