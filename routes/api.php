@@ -52,6 +52,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::controller(UserController::class)->group(function () {
         Route::get('user-profile', 'userProfile');
         Route::post('logout',  'logout');
+        Route::get('exportarexcel', [UserController::class, 'exportar']);
     });
     Route::group(['middleware' => 'daterangeReporte'], function () {
         Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);
@@ -59,6 +60,8 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
 });
 Route::post('/login-jurado', [UserController::class, 'login']);
 Route::post('/login-participante', [ParticipanteController::class, 'login']);
+
+
 /* Route::group(['middleware' => 'daterangeReporte'], function () {
     Route::get('calificacion/reporte', [CalificacionController::class, 'calificacionReporte']);
 }); */

@@ -130,4 +130,10 @@ class UserController extends Controller
             "messages" => "Cierre de Sesión",
         ]);
     }
+    public function exportar()
+    {
+        $path = storage_path('app/public/seeds/datosPassword.xlsx');
+
+        return response()->download($path);
+    }
 }
