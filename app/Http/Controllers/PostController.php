@@ -143,7 +143,7 @@ class PostController extends Controller
             return response()->json(["error" => "no autorizado"], 403);
         }
 
-        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', '=', 0)->where('categoria_id', '=', $categoria_id) ->orderBy('fecha','desc')->paginate(10);
+        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', '=', 0)->where('categoria_id', '=', $categoria_id) ->orderBy('fecha','desc')->paginate(10);
         return response()->json(['Post' => $post]);
     }
 
