@@ -19,7 +19,7 @@ class ImagenController extends Controller
 
      public $rulesImagenes=array(
 
-        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000|min:5000|dimensions:max_width=4032,max_height=4032',
+        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000|min:1000|dimensions:max_width=4032,max_height=4032',
 );
     public $mensajes=array(
 
@@ -28,7 +28,7 @@ class ImagenController extends Controller
         'imagen.mimes' => 'Tipo de imagen no valido.',
         'imagen.max' => 'El tamaño máximo de la imagen es de 10 MB.',
         'imagen.dimensions' => 'Esta imagen supero el ancho o alto permitido.',
-        'imagen.min' => 'El tamaño minimo de la imagen es de 5 MB.',
+        'imagen.min' => 'El tamaño minimo de la imagen es de 1 MB.',
     );
     public function index()
     {
