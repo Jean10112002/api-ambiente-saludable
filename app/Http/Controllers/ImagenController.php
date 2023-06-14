@@ -19,15 +19,16 @@ class ImagenController extends Controller
 
      public $rulesImagenes=array(
 
-        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000,dimensions:max_width=4032,max_height=4032',
+        'imagen' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10000|min:5000|dimensions:max_width=4032,max_height=4032',
 );
     public $mensajes=array(
 
         'imagen.required' => 'Se requiere una imagen.',
         'imagen.image' => 'Solo se permite imagenes.',
         'imagen.mimes' => 'Tipo de imagen no valido.',
-        'imagen.max' => 'Esta imagen supero el tamaño de envio.',
+        'imagen.max' => 'El tamaño máximo de la imagen es de 10 MB.',
         'imagen.dimensions' => 'Esta imagen supero el ancho o alto permitido.',
+        'imagen.min' => 'El tamaño minimo de la imagen es de 5 MB.',
     );
     public function index()
     {
@@ -44,7 +45,7 @@ class ImagenController extends Controller
     public function store(Request $request)
     {
         //
-        $usuario=Auth::guard('sanctum')->user();
+         $usuario=Auth::guard('sanctum')->user();
         if($usuario->rol!=='participante'){
             return response()->json(["error"=>"no autorizado"],403);
         }
