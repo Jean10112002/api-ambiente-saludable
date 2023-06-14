@@ -33,7 +33,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::apiResource('participante', ParticipanteController::class)->only('show', 'index');
     Route::get('participante/search/{cedula}', [ParticipanteController::class, 'showByCedula']);
     Route::get('post/search-categoria/{id}', [PostController::class, 'showCategoria']);
-    Route::apiResource('post', PostController::class)->only('index','destroy'); //*TODO solo participante store y solo admin destroy
+    Route::apiResource('post', PostController::class)->only('index','destroy','show'); //*TODO solo participante store y solo admin destroy
 
     Route::group(['middleware' => 'daterange'], function () {
         Route::apiResource('interaccion/comentario', Comentario_Post::class)->only('store'); //*TODO solo participante

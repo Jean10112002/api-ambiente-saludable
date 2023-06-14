@@ -45,7 +45,7 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->paginate(10);
+        $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->orderBy('fecha','desc')->paginate(10);
        /*  $posts = Post::with('Participante:id,nombres,cedula', 'Like.Post:id,titulo', 'Like.Participante:id,nombres', 'Calificacion', 'Comentario_Post.Comentario:id,mensaje')->paginate(10); */
         return response()->json(['Posts' => $posts]);
     }
@@ -98,7 +98,21 @@ class PostController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+    public function show($id)
+    {
+        //
+        try {
+            $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('id',$id)->first();
+            /*  $posts = Post::with('Participante:id,nombres,cedula', 'Like.Post:id,titulo', 'Like.Participante:id,nombres', 'Calificacion', 'Comentario_Post.Comentario:id,mensaje')->paginate(10); */
+             return response()->json($posts);
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
 
+            return response()->json(['no se encontró el post', 'Post' => $posts]);
+        }
+
+    }
     /**
      * Display the specified resource.
      *
@@ -108,7 +122,7 @@ class PostController extends Controller
     public function showCategoria($idcategoria)
     {
         //
-        $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('categoria_id', $idcategoria)->paginate(10);
+        $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('categoria_id', $idcategoria)->orderBy('fecha','desc')->paginate(10);
         return response()->json(['PostCategoria' => $posts]);
     }
 
@@ -119,7 +133,7 @@ class PostController extends Controller
             return response()->json(["error" => "no autorizado"], 403);
         }
 
-        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', 0)->paginate(10);
+        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', 0)->orderBy('fecha','desc')->paginate(10);
         return response()->json(['Post' => $post]);
     }
     public function postSinCalificarConCategoria($categoria_id)
@@ -129,7 +143,7 @@ class PostController extends Controller
             return response()->json(["error" => "no autorizado"], 403);
         }
 
-        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', '=', 0)->where('categoria_id', '=', $categoria_id)->paginate(10);
+        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', '=', 0)->where('categoria_id', '=', $categoria_id) ->orderBy('fecha','desc')->paginate(10);
         return response()->json(['Post' => $post]);
     }
 
