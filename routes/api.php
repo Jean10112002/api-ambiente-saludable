@@ -38,7 +38,7 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     Route::group(['middleware' => 'daterange'], function () {
         Route::apiResource('interaccion/comentario', Comentario_Post::class)->only('store'); //*TODO solo participante
         Route::apiResource('interaccion/like', LikeController::class)->only('store', 'destroy'); //*TODO solo participante
-        Route::apiResource('post/imagen', ImagenController::class)->only('store'); //*TODO solo participante
+        Route::apiResource('post/imagen', ImagenController::class)->only('store','destroy'); //*TODO solo participante
         Route::apiResource('post', PostController::class)->only('store'); //*TODO solo participante store y solo admin destroy
     });
 

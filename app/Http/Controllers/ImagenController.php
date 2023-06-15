@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Imagen;
 use Illuminate\Http\Request;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use PhpParser\Node\Stmt\TryCatch;
+
 
 class ImagenController extends Controller
 {
@@ -107,8 +108,18 @@ class ImagenController extends Controller
      */
     public function destroy($id)
     {
-        //
-
-
+        try {
+            $producto = Imagen::findOrFail($id);
+            $public_id = $producto->id_imagen;
+            Cloudinary::destroy($public_id);
+            return response()->json([
+                'messages' => "foto eliminada"
+            ], Response::HTTP_OK);
+        } catch (\Throwable $e) {
+            return response()->json([
+                'message' => "error al eliminar la foto",
+                "exception" => $e->getMessage()
+            ], 500);
+        }
     }
 }
