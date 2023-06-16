@@ -123,7 +123,7 @@ class PostController extends Controller
     {
         //
         $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('categoria_id', $idcategoria)->orderBy('fecha','desc')->paginate(10);
-        return response()->json(['PostCategoria' => $posts]);
+        return response()->json(['Posts' => $posts]);
     }
 
     public function postSinCalificarSinCategoria()
@@ -134,7 +134,7 @@ class PostController extends Controller
         }
 
         $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', 0)->orderBy('fecha','desc')->paginate(10);
-        return response()->json(['Post' => $post]);
+        return response()->json(['Posts' => $post]);
     }
     public function postSinCalificarConCategoria($categoria_id)
     {
@@ -144,7 +144,7 @@ class PostController extends Controller
         }
 
         $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', '=', 0)->where('categoria_id', '=', $categoria_id) ->orderBy('fecha','desc')->paginate(10);
-        return response()->json(['Post' => $post]);
+        return response()->json(['Posts' => $post]);
     }
 
     /**
