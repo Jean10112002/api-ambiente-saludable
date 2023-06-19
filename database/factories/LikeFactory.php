@@ -17,7 +17,7 @@ class LikeFactory extends Factory
     public function definition()
     {
         return [
-            "post_id"=>fake()->numberBetween(1,30),
+            "post_id"=>fake()->numberBetween(1,50),
             "participante_id"=>fake()->numberBetween(1,607)
         ];
     }

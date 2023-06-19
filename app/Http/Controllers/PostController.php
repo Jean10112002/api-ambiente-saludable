@@ -140,7 +140,7 @@ class PostController extends Controller
                     })
                     ->orderBy('fecha','desc')
                     ->paginate(10);
-        return response()->json(['posts' => $posts]);
+        return response()->json(['Posts' => $posts]);
     }
     public function postSinCalificarConCategoria($categoria_id)
     {
@@ -155,7 +155,7 @@ class PostController extends Controller
                     })->where('categoria_id','=',$categoria_id)
                     ->orderBy('fecha','desc')
                     ->paginate(10);
-        return response()->json(['posts' => $posts]);
+        return response()->json(['Posts' => $posts]);
     }
 
     /**

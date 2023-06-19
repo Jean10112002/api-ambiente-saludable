@@ -20,7 +20,7 @@ class Comentario_PostFactory extends Factory
             "fecha"=>"2023-06-01",
             "comentario_id"=>fake()->numberBetween(1,6),
             "participante_id"=>fake()->numberBetween(1,607),
-            "post_id"=>fake()->numberBetween(1,30)
+            "post_id"=>fake()->numberBetween(1,50)
         ];
     }
 }
