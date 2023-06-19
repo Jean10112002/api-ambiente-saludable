@@ -16,7 +16,7 @@ class CalificacionSeeder extends Seeder
      */
     public function run()
     {
-        $posts=30;
+        $posts=50;
         for ($i = 1; $i <= $posts; $i++) {
             for ($j = 2; $j <= 7; $j++) {
                 $contenido = fake()->randomFloat(2, 1, 10);
