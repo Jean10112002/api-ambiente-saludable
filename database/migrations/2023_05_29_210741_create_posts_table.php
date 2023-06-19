@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('ciudad');
             $table->date('fecha');
             $table->double('calificacionFinal')->nullable();
-            $table->boolean('estado')->default(0);
+
         //Relaciones
         //imagen
             $table->foreignId('imagen_id')

@@ -43,9 +43,10 @@ Route::group(['middleware' => ["auth:sanctum"]], function () {
     });
 
     Route::group(['middleware' => 'daterangeCalificar'], function () {
+
+        Route::apiResource('calificacion', CalificacionController::class)->only('store'); //*TODO solo jurado
         Route::get('post/search/sincalificacion', [PostController::class, 'postSinCalificarSinCategoria']); //*TODO solo jurado
         Route::get('post/search-categoria-sincalificar/{id}', [PostController::class, 'postSinCalificarConCategoria']); //*TODO solo jurado
-        Route::apiResource('calificacion', CalificacionController::class)->only('store'); //*TODO solo jurado
 
     });
 

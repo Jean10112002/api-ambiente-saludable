@@ -32,7 +32,7 @@ class CalificacionSeeder extends Seeder
                     "post_id" => $i,
                     "user_id" => $j
                 ]);
-                Post::find($i)->update(['estado'=>1]);
+
             }
         }
         /* $contenido=(fake()->randomFloat(2, 1, 10)*0.30);

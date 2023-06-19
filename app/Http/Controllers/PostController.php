@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Calificacion;
 use App\Models\Categoria;
 use App\Models\Imagen;
 use App\Models\Participante;
@@ -133,8 +134,13 @@ class PostController extends Controller
             return response()->json(["error" => "no autorizado"], 403);
         }
 
-        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', 0)->orderBy('fecha','desc')->paginate(10);
-        return response()->json(['Posts' => $post]);
+        $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')
+                    ->whereDoesntHave('Calificacion', function ($query) use ($usuario) {
+                        $query->where('user_id', $usuario->id);
+                    })
+                    ->orderBy('fecha','desc')
+                    ->paginate(10);
+        return response()->json(['posts' => $posts]);
     }
     public function postSinCalificarConCategoria($categoria_id)
     {
@@ -143,8 +149,13 @@ class PostController extends Controller
             return response()->json(["error" => "no autorizado"], 403);
         }
 
-        $post = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')->where('estado', '=', 0)->where('categoria_id', '=', $categoria_id) ->orderBy('fecha','desc')->paginate(10);
-        return response()->json(['Posts' => $post]);
+        $posts = Post::with('Participante','Categoria','Imagen', 'Like','Like.Participante', 'Calificacion', 'Comentario_Post','Comentario_Post.Comentario','Comentario_Post.Participante')
+                    ->whereDoesntHave('Calificacion', function ($query) use ($usuario) {
+                        $query->where('user_id', $usuario->id);
+                    })->where('categoria_id','=',$categoria_id)
+                    ->orderBy('fecha','desc')
+                    ->paginate(10);
+        return response()->json(['posts' => $posts]);
     }
 
     /**
