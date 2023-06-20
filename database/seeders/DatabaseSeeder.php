@@ -31,6 +31,6 @@ class DatabaseSeeder extends Seeder
          $this->call(PostSeeder::class);
        $this->call(ComentarioPostSeeder::class);
         $this->call(LikeSeeder::class);
-        /* $this->call(CalificacionSeeder::class); */
+         $this->call(CalificacionSeeder::class);
     }
 }

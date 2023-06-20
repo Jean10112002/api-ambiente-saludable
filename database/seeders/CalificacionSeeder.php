@@ -18,7 +18,7 @@ class CalificacionSeeder extends Seeder
     {
         $posts=50;
         for ($i = 1; $i <= $posts; $i++) {
-            for ($j = 2; $j <= 7; $j++) {
+            for ($j = 2; $j <= 6; $j++) {
                 $contenido = fake()->randomFloat(2, 1, 10);
                 $organizacion_estatica = fake()->randomFloat(2, 1, 10) ;
                 $creatividad = fake()->randomFloat(2, 1, 10) ;
