@@ -132,11 +132,12 @@ class CalificacionController extends Controller
         if ($usuario->rol !== 'admin') {
             return response()->json(["error" => "no autorizado"], 403);
         }
+
         $categorias = Categoria::with(['Post' => function($query){
             $query->orderBy('calificacionFinal', 'desc');
         },'Post.Participante', 'Post.Calificacion', 'Post.Calificacion.User'])
             ->get();
-        $mayorLikesComentarios = Post::with('Participante')->withCount(['Like', 'Comentario_Post'])
+        $mayorLikesComentarios = Post::with('Participante','Categoria')->withCount(['Like', 'Comentario_Post'])
             ->orderBy('like_count', 'desc')
             ->orderBy('comentario__post_count', 'desc')
             ->get();
