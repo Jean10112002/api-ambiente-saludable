@@ -24,7 +24,7 @@ class CalificacionController extends Controller
         'organizacion_estatica' => 'required|numeric',
         'creatividad' => 'required|numeric',
         'tecnica' => 'required|numeric',
-        'post_id'=>'required|numeric',
+        'post_id' => 'required|numeric',
     );
     public $mensajes = array(
 
@@ -71,8 +71,8 @@ class CalificacionController extends Controller
             ], 500);
         };
         $calificacionExistente = Calificacion::where('user_id', $usuario->id)
-        ->where('post_id', $request->post_id)
-        ->first();
+            ->where('post_id', $request->post_id)
+            ->first();
         if ($calificacionExistente) {
             return response()->json(['error' => 'El usuario ya le ha dado calificacion a este post'], 400);
         }
@@ -132,11 +132,12 @@ class CalificacionController extends Controller
         if ($usuario->rol !== 'admin') {
             return response()->json(["error" => "no autorizado"], 403);
         }
-        $categorias = Categoria::with(['Post' => function($query){
+        $categorias = Categoria::with(['Post' => function ($query) {
             $query->orderBy('calificacionFinal', 'desc');
-        },'Post.Participante', 'Post.Calificacion', 'Post.Calificacion.User'])
+        }, 'Post.Participante', 'Post.Calificacion', 'Post.Calificacion.User'])
             ->get();
-        $mayorLikesComentarios = Post::with('Participante','Categoria')->withCount(['Like', 'Comentario_Post'])
+        $mayorLikesComentarios = Post::with('Participante', 'Categoria')->withCount(['Like', 'Comentario_Post'])
+            ->orderByRaw('like_count + comentario__post_count DESC')
             ->orderBy('like_count', 'desc')
             ->orderBy('comentario__post_count', 'desc')
             ->get();
