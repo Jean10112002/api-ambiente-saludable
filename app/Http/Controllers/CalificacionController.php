@@ -138,6 +138,7 @@ class CalificacionController extends Controller
         },'Post.Participante', 'Post.Calificacion', 'Post.Calificacion.User'])
             ->get();
         $mayorLikesComentarios = Post::with('Participante','Categoria')->withCount(['Like', 'Comentario_Post'])
+            ->orderByRaw('like_count + comentario__post_count DESC')
             ->orderBy('like_count', 'desc')
             ->orderBy('comentario__post_count', 'desc')
             ->get();
