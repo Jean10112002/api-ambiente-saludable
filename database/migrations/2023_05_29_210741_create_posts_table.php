@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('descripcion');
             $table->string('lugar');
             $table->string('ciudad');
-            $table->date('fecha');
+            $table->dateTime('fecha');
             $table->double('calificacionFinal')->nullable();
 
         //Relaciones
