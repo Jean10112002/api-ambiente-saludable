@@ -22,7 +22,7 @@ class PostFactory extends Factory
             "ciudad"=>fake()->text(),
             "lugar"=>fake()->text(),
             "fecha"=>"2023-06-01 14:30:00",
-            "imagen_id"=>fake()->numberBetween(1,10),
+            "imagen_id"=>fake()->numberBetween(1,50),
             "categoria_id"=>fake()->numberBetween(1,6),
             "participante_id"=>fake()->numberBetween(1,607)
         ];
