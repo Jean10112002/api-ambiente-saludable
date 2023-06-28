@@ -78,7 +78,7 @@ class PostController extends Controller
         ->where('categoria_id', $request->categoria_id)
         ->first();
         if ($postExistente) {
-            return response()->json(['error' => 'El usuario ya ha dado subido una imagen a esta categoria'], 400);
+            return response()->json(['error' => 'El usuario ya ha dado subido una imagen a esta categoria'], 500);
         }
 
 
